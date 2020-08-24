@@ -18,13 +18,13 @@ player_points = 0
 computer_points = 0
 while play_answer == "yes":
     print("User has " + str(player_points) + "\nComputer has " + str(computer_points) + "\n")
-    print("\nRock, Paper, Scissors, say SHOOT:")
+    print("Rock, Paper, Scissors, say SHOOT:")
     computer_turn = computer()
     player_turn = user()
     print("User threw: " + player_turn)
     print("Computer threw: " + computer_turn)
-    print("\n\n")
-    if computer_turn == "rock" and player_turn == "rock":
+
+    if computer_turn == player_turn:
         print("It's a tie")
     elif computer_turn == "rock" and player_turn == "paper":
         print("Paper covers rock. Therefore User wins")
@@ -33,8 +33,6 @@ while play_answer == "yes":
         print("Rock crushes scissors. Therefore Computer wins")
         computer_points = computer_points + 1
 
-    elif computer_turn == "paper" and player_turn == "paper":
-        print("It's a tie")
     elif computer_turn == "paper" and player_turn == "rock":
         print("Paper covers rock. Therefore Computer wins")
         computer_points = computer_points + 1
@@ -48,23 +46,22 @@ while play_answer == "yes":
     elif computer_turn == "scissors" and player_turn == "paper":
         print("Scissors covers paper. Therefore Computer wins")
         computer_points = computer_points + 1
-    elif computer_turn == "scissors" and player_turn == "scissors":
-        print("It's a tie")
+    elif player_turn == "quit":
+        break
+    else:
+        print("Invalid Input")
 
-    if player_turn == "quit":
+    if player_points == 10 or computer_points == 10:
         break
-    if player_points == 10:
-        break
-    elif computer_points == 10:
-        break
+
 if player_points > computer_points:
     print("User has won the game")
-    print("User has " + str(player_points) + "\nComputer has " + str(computer_points) + "\n")
+    print("User has " + str(player_points) + " point(s)\nComputer has " + str(computer_points) + " point(s)\n")
 elif computer_points > player_points:
     print("Computer has won the game")
-    print("User has " + str(player_points) + "\nComputer has " + str(computer_points) + "\n")
+    print("User has " + str(player_points) + " point(s)\nComputer has " + str(computer_points) + " point(s)\n")
 elif player_points == computer_points:
     print("The game ends in a tie")
-    print("User has " + str(player_points) + "\nComputer has " + str(computer_points) + "\n")
+    print("User has " + str(player_points) + " point(s)\nComputer has " + str(computer_points) + " point(s)\n")
 
 print("\n\nThank you for playing")
