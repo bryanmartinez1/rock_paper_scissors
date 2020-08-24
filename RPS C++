@@ -1,0 +1,110 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+using namespace std;
+
+
+string com_throw() {
+    vector<string> rps = {"ROCK", "PAPER", "SCISSORS"};
+    srand(time(NULL));
+    int random = rand() % 3;
+    string com_choice = rps.at(random);
+    return com_choice;
+}
+
+string user_throw() {
+    string user_choice;
+    cout << "Would you like to throw rock, paper, or scissors" << endl;
+    cin >> user_choice;
+    return user_choice;
+}
+
+string convert_Upper (string word) {
+    for (int i = 0; i < word.length(); ++i) {
+        if (word.at(i) >= 'a' && word.at(i) <= 'z') {
+            word.at(i) = word.at(i) - 'a' + 'A';
+        }
+    }
+    return word;
+}
+
+void winner(int u_points, int c_points) {
+    if (u_points > c_points) {
+        cout << "USER WINS" << endl << "USER: " << u_points << endl << "COMPUTER: " << c_points << endl;
+    }
+    else if (u_points < c_points) {
+        cout << "COMPUTER WINS" << endl << "USER: " << u_points << endl << "COMPUTER: " << c_points << endl;
+    }
+    else {
+        cout << "TIED GAME" << endl << "USER: " << u_points << endl << "COMPUTER: " << c_points << endl;
+    }
+}
+
+int main() {
+    string play_resp, user_shoot, com_shoot;
+    int user_points, com_points, max_points;
+    
+    cout << "Welcome to ROCK, PAPER, SCISSORS game." << endl << "Would you like to play?" << endl;
+    cin >> play_resp;
+    
+    user_points = 0;
+    com_points = 0;
+    max_points = 10;
+    
+    play_resp = convert_Upper(play_resp);
+    
+    while (play_resp == "YES") {
+        cout << "Rock, Paper, Scissors, say shoot:" << endl;
+        com_shoot = com_throw();
+        user_shoot = user_throw();
+        user_shoot = convert_Upper(user_shoot);
+        if (user_shoot == "ROCK" && com_shoot == "PAPER") {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "PAPER covers ROCK." << endl << "COMPUTER WINS" << endl;
+            com_points = com_points + 1;
+        }
+        else if (user_shoot == "ROCK" && com_shoot == "SCISSORS") {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "ROCK smashes SCISSORS." << endl << "USER WINS" << endl;
+            user_points = user_points + 1;
+        }
+        else if (user_shoot == "PAPER" && com_shoot == "SCISSORS") {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "SCISSORS cuts PAPER." << endl << "COMPUTER WINS" << endl;
+            com_points = com_points + 1;
+        }
+        else if (user_shoot == "PAPER" && com_shoot == "ROCK") {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "PAPER covers ROCK." << endl << "USER WINS" << endl;
+            user_points = user_points + 1;
+        }
+        else if (user_shoot == "SCISSORS" && com_shoot == "ROCK") {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "ROCK smashes SCISSORS." << endl << "COMPUTER WINS" << endl;
+            com_points = com_points + 1;
+        }
+        else if (user_shoot == "SCISSORS" && com_shoot == "PAPER") {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "SCISSORS cuts PAPER." << endl << "USER WINS" << endl;
+            user_points = user_points + 1;
+        }
+        else if (user_shoot == com_shoot) {
+            cout << "USER throws " << user_shoot << endl << "Computer throws " << com_shoot << endl;
+            cout << "It's a TIE." << endl;
+        }
+        else if (user_shoot == "QUIT") break;
+        else {
+            cout << "Invalid Input." << endl;
+        }
+        
+        cout << endl << "USER POINTS: " << user_points << endl;
+        cout << "COMPUTER POINTS: " << com_points << endl << endl;
+        
+        if (user_points == 10 || com_points == 10) break;
+    }
+    
+    winner(user_points, com_points);
+    cout << "GAME OVER. GOODBYE..." << endl;
+    return 0;
+}
